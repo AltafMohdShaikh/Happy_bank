@@ -106,7 +106,7 @@ export default function Login() {
       <div className="w-full max-w-sm border border-slate-300 rounded p-6 bg-white space-y-4">
         <div className="text-center border-b border-slate-200 pb-3">
           <h1 className="text-xl font-bold text-slate-900">Happy Bank</h1>
-          <p className="text-xs text-slate-500">Banking Management Skeleton</p>
+          <p className="text-xs text-slate-500">Welcome to happy bank</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-3">
