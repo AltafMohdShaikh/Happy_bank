@@ -30,10 +30,10 @@ export default function Navbar() {
     setSearchResults(filtered);
   };
 
-  const handleLogout = () => {
-    logoutUser();
-    navigate("/login");
-  };
+const handleLogout = () => {
+  logoutUser();
+  navigate("/login", { replace: true });
+};
 
   return (
     <header className="h-14 border-b border-slate-200 bg-white px-5 flex items-center justify-between">
