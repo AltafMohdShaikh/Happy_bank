@@ -7,50 +7,94 @@ export default function Login() {
   const [username, setUsername] = useState("john.maker");
   const [password, setPassword] = useState("password123");
 
-const handleLogin = async (e) => {
+  const handleLogin = (e) => {
   e.preventDefault();
 
-  try {
-    const response = await fetch("YOUR_API_URL_HERE", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      console.log("Login Successful:", data);
-
-      initializeData();
-
-      setCurrentUser({
-        username: username,
-        displayName: username?.includes("checker")
-          ? "Sarah Checker"
-          : "John Maker",
-        role: username?.includes("checker")
-          ? "Checker Officer"
-          : "Maker Officer",
-        branch: "Mumbai Main Branch"
-      });
-
-      navigate("/dashboard");
-
-    } else {
-      alert(data.message || "Invalid username or password");
+  // Predefined test users
+  const users = {
+    "john.maker": {
+      password: "maker123",
+      displayName: "John Maker",
+      role: "Maker Officer"
+    },
+    "sarah.checker": {
+      password: "checker123",
+      displayName: "Sarah Checker",
+      role: "Checker Officer"
     }
+  };
 
-  } catch (error) {
-    console.error("Login API Error:", error);
-    alert("Unable to connect to the server");
+  // Check whether username exists
+  const user = users[username];
+
+  if (!user) {
+    alert("Invalid username. User not found.");
+    return;
   }
+
+  // Check password
+  if (user.password !== password) {
+    alert("Incorrect password. Please try again.");
+    return;
+  }
+
+  // Successful login
+  initializeData();
+
+  setCurrentUser({
+    username: username,
+    displayName: user.displayName,
+    role: user.role,
+    branch: "Mumbai Main Branch"
+  });
+
+  navigate("/dashboard");
 };
+
+// const handleLogin = async (e) => {
+//   e.preventDefault();
+
+//   try {
+//     const response = await fetch("YOUR_API_URL_HERE", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         username: username,
+//         password: password
+//       })
+//     });
+
+//     const data = await response.json();
+
+//     if (response.ok) {
+//       console.log("Login Successful:", data);
+
+//       initializeData();
+
+//       setCurrentUser({
+//         username: username,
+//         displayName: username?.includes("checker")
+//           ? "Sarah Checker"
+//           : "John Maker",
+//         role: username?.includes("checker")
+//           ? "Checker Officer"
+//           : "Maker Officer",
+//         branch: "Mumbai Main Branch"
+//       });
+
+//       navigate("/dashboard");
+
+//     } else {
+//       alert(data.message || "Invalid username or password");
+//     }
+
+//   } catch (error) {
+//     console.error("Login API Error:", error);
+//     alert("Unable to connect to the server");
+//   }
+// };
 
   const handleRegisterCustomer = () => {
     initializeData();
